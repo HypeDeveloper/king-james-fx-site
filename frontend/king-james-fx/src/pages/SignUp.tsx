@@ -1,29 +1,44 @@
+import { useState } from "react";
+
 export function SignUp() {
-    const formData = {
-        userName: '',
-        fullName: '',
-        email: '',
-        password: '',
-        country: '',
-        
-    }
+    const [formData, setFormData] = useState({
+            userName: "",
+            fullName: "",
+            email: "",
+            password: "",
+            country: "",
+        }
+    );
+    
     const handleForm = () => {
         
     }
     return (
         <div className="sign">
             <div className="header">
-                <h1>Welcom back</h1>
+                <h1>Welcome back</h1>
             </div>
             <div className="signWrap">
-                <UserInfoFirst />
+                <UserInfoFirst data={formData} />
             </div>
         </div>
     );
 }
 
-function UserInfoFirst(props) {
-    const handleSwitch = () => {
+function UserInfoFirst(props: FirstInfo) {
+    const handleSwitch = (e: any) => {
+        e.preventDefault()
+
+        const username: any = document.getElementById("UserName"),
+            fullname: any = document.getElementById("FullName"),
+            email: any = document.getElementById("Email");
+        
+
+        props.data.userName = username?.textContent;
+        props.data.fullName = fullname?.textContent;
+        props.data.email = email?.textContent;
+
+        console.log(props.data);
         
     }
     return (
@@ -33,14 +48,14 @@ function UserInfoFirst(props) {
                     <h1>Create Account</h1>
                     <p>Fill in your details below</p>
                 </div>
-                <form className="SignBox">
+                <form className="SignBox" onSubmit={handleSwitch}>
                     <div className="splitForm">
                         {/* Fullname */}
                         <div className="wrapInput">
                             <input
                                 type="text"
                                 name=""
-                                id=""
+                                id="FullName"
                                 placeholder="FullName"
                                 required
                             />
@@ -50,7 +65,7 @@ function UserInfoFirst(props) {
                             <input
                                 type="text"
                                 name=""
-                                id=""
+                                id="UserName"
                                 placeholder="UserName"
                                 required
                             />
@@ -60,7 +75,7 @@ function UserInfoFirst(props) {
                             <input
                                 type="email"
                                 name=""
-                                id=""
+                                id="Email"
                                 placeholder="Email"
                                 required
                             />
@@ -74,7 +89,7 @@ function UserInfoFirst(props) {
                         </select>
                         {/* password */}
                     </div>
-                    <button className="buttonForm" onClick={handleSwitch} type="submit">
+                    <button className="buttonForm" type="submit">
                         Next
                     </button>
                     <p className="bottomText">
@@ -88,7 +103,7 @@ function UserInfoFirst(props) {
         </>
     );
 }
-function UserInfoSecond(props) {
+function UserInfoSecond() {
     return (
         <>
             <div className="SignUp">
@@ -171,4 +186,15 @@ function UserInfoThird() {
             </div>
         </>
     );
+}
+
+interface FirstInfo{
+    data: FormData
+}
+interface FormData {
+    userName?: string | null | undefined;
+    fullName?: string | null | undefined;
+    email?: string | null | undefined;
+    password?: string | null | undefined;
+    country?: string | null | undefined;
 }

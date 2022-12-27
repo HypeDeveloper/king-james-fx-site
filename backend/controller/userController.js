@@ -1,43 +1,116 @@
-const asyncHandler = require('express-async-handler')
-// get Goal [route: GET /user] [private]
-const getUsers = async(req, res) => {
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
+const User = require('../model/userModel')
+const randomstring = require("randomstring");
+const asyncHandler = require('express-async-handler');
+const Users = require('../config/users');
+// get User Data 
+// [route: GET /user/me] 
+// [@public]
+const getUserData = asyncHandler(async(req, res) => {
     res.status(200).json({
-        message: "Get Users",
+        message: "User Data",
     });
-}
+})
 
 
-// add User [route: POST /user] [private]
-const addUser = async(req, res) => {
-    if (!req.body.text) {
-        res.status(400)
-        throw new Error('null')
+// register User 
+// [route: POST /user] 
+// [@public]
+const registerUser = asyncHandler(async (req, res) => {
+    const {
+        fullname,
+        username,
+        email,
+        password,
+        country,
+        ethAddress,
+        btcAddress,
+        usdtAddress,
+        inviteRefCode,
+    } = req.body;
+
+    const userExists = User.findOne({ username });
+    if (userExists) {
+        res.status(400);
+        throw new Error("user already exists");
     }
+    // Hash Password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
+    // Generate User RefCode
+    const refRand = randomstring.generate({
+        length: 8,
+        charset: "alphanumeric ",
+    });
+    const userRefCode = `${username}-${refRand}`;
 
+    const user = new Users(
+        fullname,
+        username,
+        email,
+        password,
+        country,
+        ethAddress,
+        btcAddress,
+        usdtAddress,
+        userRefCode,
+        inviteRefCode
+    );
+
+    user.fieldsValid(res);
+
+    //
+
+    // // create user
+    // const user = await User.create({
+    //     fullname,
+    //     username,
+    //     email,
+    //     country,
+    //     password: hashedPassword,
+    //     btcAddress,
+    //     ethAddress,
+    //     usdtAddress,
+    //     userRefCode,
+    //     inviteRefCode,
+    // });
+
+    if (user) {
+        res.status(201).json(user);
+    } else {
+        res.status(400);
+        throw new Error("user data is not valid");
+    }
     res.status(200).json({
-        message: 'Add User'
-    })
-}
+        message: "Register User",
+    });
+});
 
 
-// update User [route: PUT /user] [private]
-const updateUser = async(req, res) => {
+// Authenticate User 
+// [route: Post /user/login] 
+// [@public]
+const loginUser = asyncHandler(async(req, res) => {
     res.status(200).json({
-        message: `update user ${req.params.id}`,
+        message: `Login user`,
     });
 
-};
-// delete User [route: DELETE /user] [private]
-const deleteUser = async(req, res) => {
+});
+
+// delete User 
+// [route: DELETE /user] 
+// [@private]
+const deleteUser = asyncHandler(async(req, res) => {
     res.status(200).json({
         message: `delete user ${req.params.id}`,
     });
-};
+})  ;
 
 module.exports = {
-    getUsers,
-    addUser,
-    updateUser,
+    getUserData,
+    registerUser,
+    loginUser,
     deleteUser,
 };

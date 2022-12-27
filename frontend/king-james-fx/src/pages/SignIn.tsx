@@ -1,5 +1,5 @@
 export function SignIn() {
-    function handleSignIn(e) {
+    function handleSignIn(e:any) {
         e.preventDefault();
         const Email = document.getElementById("Email Address"),
             Password = document.getElementById("Password");
@@ -15,7 +15,7 @@ export function SignIn() {
     return (
         <div className="sign">
             <div className="header">
-                <h1>Welcom back</h1>
+                <h1>Welcome back</h1>
             </div>
             <div className="signWrap">
                 <div className="SignIn">
