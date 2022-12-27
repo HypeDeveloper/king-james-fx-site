@@ -1,4 +1,17 @@
 export function SignIn() {
+    function handleSignIn(e) {
+        e.preventDefault();
+        const Email = document.getElementById("Email Address"),
+            Password = document.getElementById("Password");
+
+        const userData = {
+            e: Email?.textContent,
+            p: Password?.textContent,
+        };
+
+        console.log(userData);
+    }
+
     return (
         <div className="sign">
             <div className="header">
@@ -7,14 +20,18 @@ export function SignIn() {
             <div className="signWrap">
                 <div className="SignIn">
                     <h1>Account Login</h1>
-                    <form className="SignBox">
+                    <form
+                        className="SignBox"
+                        id="SignIn-Form"
+                        onSubmit={handleSignIn}
+                    >
                         <img src="" alt="" />
                         <p>Sign into your account</p>
                         <div className="wrapInput">
                             <input
                                 type="email"
                                 name=""
-                                id=""
+                                id="Email Address"
                                 placeholder="Email Address"
                                 required
                             />
@@ -23,7 +40,7 @@ export function SignIn() {
                             <input
                                 type="password"
                                 name=""
-                                id=""
+                                id="Password"
                                 placeholder="Password"
                                 required
                             />
@@ -42,3 +59,4 @@ export function SignIn() {
         </div>
     );
 }
+
