@@ -1,16 +1,27 @@
 .sign{
-    margin-bottom:60px;
+    display: flex;
+    align-items: center;
+    background-color: black;
+    height: 100vh;
+    /* color: white; */
 }
 .sign .header{
-    height: 50vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 60%;
+    background-color: #fff;
+
 }
 .signWrap{
     display: flex;
     align-items: center;
     justify-content: center;
+    zoom: 88%;
+    height: 100vh;
+    width: 40%;
+
 }
 .SignIn{
     padding:70px 40px 50px;
@@ -28,11 +39,15 @@
     gap: 40px;
 }
 .SignUp{
-    padding-top: 100px;    padding-bottom: 70px;
+    padding:70px 40px 50px;
+    border-radius: 20px;
     display : flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: black;
+    width: fit-content;
+    color: white;
 }
 .SignBox{
     display : flex;

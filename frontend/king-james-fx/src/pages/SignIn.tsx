@@ -49,7 +49,7 @@ export function SignIn() {
                         <button type="submit">Login</button>
                         <p className="bottomText">
                             Don't have an Account yet?{" "}
-                            <a href="#" className="formLink">
+                            <a href="/signUp" className="formLink">
                                 Create Account
                             </a>
                         </p>
