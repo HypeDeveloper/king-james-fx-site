@@ -1,0 +1,43 @@
+
+.dashBoardContent{
+    display: flex;
+}
+.sideBar-dashbar{
+    width: 300px;
+    background: #fff;
+    height: 100vh;
+}
+.buttonsWrap{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.main-dashbar{
+    
+    background: #f2f2f2;
+    width: 100%;
+}
+
+/* Dash Button */
+.button-dash{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 15px 10px 15px 30px;
+    background: rgb(234, 234, 234);
+    color: white;
+}
+.bttn-dash-icon{
+    width: 20px;
+    color: white;
+}
+.button-dash p{
+    font-size: 15px;
+    font-weight: 600;
+}
+.logo{
+    padding-left: 40px;
+    padding-top: 40px;
+}
