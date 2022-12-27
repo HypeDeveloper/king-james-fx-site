@@ -1,5 +1,6 @@
+const asyncHandler = require('express-async-handler')
 // get Goal [route: GET /user] [private]
-const getUsers = (req, res) => {
+const getUsers = async(req, res) => {
     res.status(200).json({
         message: "Get Users",
     });
@@ -7,7 +8,7 @@ const getUsers = (req, res) => {
 
 
 // add User [route: POST /user] [private]
-const addUser = (req, res) => {
+const addUser = async(req, res) => {
     if (!req.body.text) {
         res.status(400)
         throw new Error('null')
@@ -21,14 +22,14 @@ const addUser = (req, res) => {
 
 
 // update User [route: PUT /user] [private]
-const updateUser = (req, res) => {
+const updateUser = async(req, res) => {
     res.status(200).json({
         message: `update user ${req.params.id}`,
     });
 
 };
 // delete User [route: DELETE /user] [private]
-const deleteUser = (req, res) => {
+const deleteUser = async(req, res) => {
     res.status(200).json({
         message: `delete user ${req.params.id}`,
     });
