@@ -1,6 +1,8 @@
+import { useRef } from "react";
 import {NavBar } from "./Home"
 
 export function SignIn() {
+    const userForm:any = useRef{}
     function handleSignIn(e:any) {
         e.preventDefault();
         const Email = document.getElementById("Email Address"),
@@ -22,7 +24,8 @@ export function SignIn() {
             <div className="signWrap">
                 <div className="SignIn">
                     <h1>Account Login</h1>
-                    <form
+                        <form
+                            ref={userForm}
                         className="SignBox"
                         id="SignIn-Form"
                         onSubmit={handleSignIn}
