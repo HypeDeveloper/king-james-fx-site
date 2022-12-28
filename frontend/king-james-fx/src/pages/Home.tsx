@@ -326,10 +326,10 @@ export function NavBar() {
     const navId: any = useRef()
     
     function openNav() {
-        navId.style.width = "100%";
+        navId.current.style.width = "100%";
     }
     function closeNav() {
-        navId.style.width = "0%";
+        navId.current.style.width = "0%";
     }
     return (
         <>
