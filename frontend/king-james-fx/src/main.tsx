@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { Dashboard, DashBoardHome } from "./pages/Dashboard";
+import { Dashboard, DashBoardHome, Packages, SupportDD, Transactions } from "./pages/Dashboard";
 import { SignIn } from './pages/SignIn'
 import { SignUp } from './pages/SignUp'
 import './style/App.css'
@@ -11,6 +11,7 @@ import { Home, Index } from './pages/Home'
 import { About, Support} from './pages/Others'
 import PageNotFound from './pages/404'
 import './style/Home.css'
+import { Admin } from './pages/Admin';
 
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -30,8 +31,12 @@ function App() {
               </Route>
               <Route path="/signUp" element={<SignUp />} />
               <Route path="/signIn" element={<SignIn />} />
+              <Route path="/admin" element={<Admin />} />
               <Route path="/dashboard" element={<Dashboard />}>
                   <Route index element={<DashBoardHome />} />
+                  <Route path="/dashboard/packages" element={<Packages />} />
+                  <Route path="/dashboard/usersupport" element={<SupportDD />} />
+                  <Route path="/dashboard/transactions" element={<Transactions />} />
               </Route>
               <Route path="*" element={<PageNotFound />} />
           </Routes>
