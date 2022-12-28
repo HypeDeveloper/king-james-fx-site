@@ -1,0 +1,131 @@
+.dashBoard{
+    background:#0f0f0f;
+    display: flex;
+    /* gap: 40px; */
+}
+.DashNavWrap{
+    height: 100vh;
+    background: rgb(0, 0, 0);
+    width: 250px;
+}
+
+.DashNavWrap{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+}
+.DashNavWrap img{
+    width: 180px;
+}
+
+.dashDisplay{
+    width: 100%;
+    padding-top: 28px;
+    color: white;
+}
+
+
+.dd-button a{
+    color: white;
+    display: block;
+}
+.links-DD{
+    padding: 70px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-direction: column;
+}
+.dd-button {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-radius: 13px;
+    width: 210px;
+    padding: 10px 19px;
+    opacity: 0.9;
+    transition: 0.2s;
+
+}
+.dd-button:hover {
+    background: rgb(12, 12, 12);
+    width: 220px;
+    opacity: 0.9;
+    transition: 0.2s;
+}
+.acitve{
+    background: rgb(29, 29, 29);
+    border-radius: 13px;
+    width: 220px;
+    padding: 10px 19px;
+    opacity: 1;
+    transition: 0.2s;
+
+}
+
+.dd-button a{
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+}
+.box-DD{
+    height: 25px ;
+    width: 25px ;
+    background: yellow;
+}
+.acitve a{
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+
+}
+
+.DD-top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0  50px;
+}
+
+.DD-texts h1{
+    font-size: 2rem;
+}
+.icon-DD{
+    height: 25px ;
+    width: 25px ;
+    background: yellow;
+}
+.userIcon{
+    height: 34px ;
+    width: 34px ;
+    background: blue;
+    border-radius: 100000px;
+}
+.search-DD{
+    display: flex;
+    gap: 10px;
+    background: black;
+    padding: 10px 18px;
+    border-radius: 10000px;
+}
+.search-DD input{
+    padding: 0 15px;
+    border: none;
+    outline: none;
+    background: none;
+}
+.search-DD input{
+    width: 200px;
+
+}
+.others{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+
+.DB-Home{
+    padding: 20px 50px 0;
+}
