@@ -6,10 +6,12 @@ const {
     loginUser,
     deleteUser,
 } = require("../controller/userController");
+const protect = require('../middleware/authMiddleware')
 
-router.route("/").post(registerUser);
-router.route("/login").post(loginUser);
-router.route("/me").get(getUserData);
+
+router.post("/", registerUser);
+router.post("/login", loginUser);
+router.get("/me", protect,getUserData);
 
 router.route("/:id").delete(deleteUser);
 

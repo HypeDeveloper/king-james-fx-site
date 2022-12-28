@@ -370,7 +370,6 @@ export function NavBar() {
                     <Link to={"/about"}>aboutus</Link>
                     <Link to={"/support"}>support</Link>
                     <Link to={"/signIn"}>login</Link>
-                    
                 </div>
             </div>
 

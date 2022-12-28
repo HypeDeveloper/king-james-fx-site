@@ -3,199 +3,186 @@ import {NavBar } from "./Home"
 
 export function SignUp() {
     const [formData, setFormData] = useState({
-            userName: "",
-            fullName: "",
-            email: "",
-            password: "",
-            country: "",
-        }
-    );
+        userName: "",
+        fullName: "",
+        email: "",
+        password: "",
+        country: "",
+        btc: "",
+        eth: "",
+        usdt: "",
+        confirmPassword: "",
+    });
+
+    const {userName, fullName, email, password, country, btc, eth, usdt, confirmPassword} = formData
     
-    const handleForm = () => {
-        
+    const onChange = (e: any) => {
+        setFormData((prevData) => ({
+            ...prevData,
+            [e.target.name]:e.target.value
+        }))
     }
     return (
         <>
-        <NavBar/>
-        <div className="sign">
-            
-            <div className="signWrap">
-                <UserInfoFirst data={formData} />
-            </div>
-        </div></>
-    );
-}
+            <NavBar />
+            <div className="sign">
+                <div className="signWrap">
+                    <form>
+                        {/* First Form */}
+                        <div className="SignUp">
+                            <div>
+                                <h1>Create Account</h1>
+                                <p>Fill in your details below</p>
+                            </div>
+                            <div className="SignBox">
+                                <div className="splitForm">
+                                    {/* Fullname */}
+                                    <div className="wrapInput">
+                                        <input
+                                            type="text"
+                                            name="fullName"
+                                            id="FullName"
+                                            placeholder="FullName"
+                                            value={fullName}
+                                            onChange={onChange}
+                                            required
+                                        />
+                                    </div>
+                                    {/* Username */}
+                                    <div className="wrapInput">
+                                        <input
+                                            type="text"
+                                            name="userName"
+                                            id="UserName"
+                                            placeholder="UserName"
+                                            value={userName}
+                                            onChange={onChange}
+                                            required
+                                        />
+                                    </div>
+                                    {/* email */}
+                                    <div className="wrapInput">
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            id="Email"
+                                            placeholder="Email"
+                                            value={email}
+                                            onChange={onChange}
+                                            required
+                                        />
+                                    </div>
+                                    {/* country */}
+                                    <select
+                                        name="country"
+                                        onChange={onChange}
+                                        id="CountryForm"
+                                        value={country}
+                                    >
+                                        <option value="Nigeria">Nigeria</option>
+                                        <option value="China">China</option>
+                                        <option value="USA">USA</option>
+                                        <option value="South Africa">
+                                            South Africa
+                                        </option>
+                                    </select>
+                                    {/* password */}
+                                </div>
+                                <button className="buttonForm">Next</button>
+                                <p className="bottomText">
+                                    Already you have an account in here?{" "}
+                                    <a href="/signIn" className="formLink">
+                                        Sign In
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
 
-function UserInfoFirst(props: FirstInfo) {
-    const handleSwitch = (e: any) => {
-        e.preventDefault()
+                        {/* Second Form */}
+                        <div className="SignUp">
+                            <h1>Add Your Wallets</h1>
+                            <p>
+                                Add the address of the wallet you will like to
+                                use
+                            </p>
+                            <div className="SignBox">
+                                <div className="splitWrap">
+                                    <div className="splitForm">
+                                        {/* Wallets */}
+                                        <div className="wrapInput">
+                                            <input
+                                                type="text"
+                                                name="eth"
+                                                id="eth"
+                                                placeholder="ETH Address"
+                                                required
+                                                onChange={onChange}
+                                            />
+                                        </div>
+                                        <div className="wrapInput">
+                                            <input
+                                                type="text"
+                                                name="btc"
+                                                id="btc"
+                                                placeholder="BTC Address"
+                                                onChange={onChange}
+                                                
+                                            />
+                                        </div>
+                                        
+                                        <div className="wrapInput">
+                                            <input
+                                                type="text"
+                                                name="usdt"
+                                                id="usdt"
+                                                placeholder="USDT(TRC20)"
+                                                onChange={onChange}
+                                            />
+                                        </div>
+                                        {/* Passwords */}
+                                    </div>
+                                </div>
+                                <button className="buttonForm">Next</button>
+                            </div>
+                        </div>
 
-        const username: any = document.getElementById("UserName"),
-            fullname: any = document.getElementById("FullName"),
-            email: any = document.getElementById("Email");
-        
-
-        props.data.userName = username?.textContent;
-        props.data.fullName = fullname?.textContent;
-        props.data.email = email?.textContent;
-
-        console.log(props.data);
-        
-    }
-    return (
-        <>
-            <div className="SignUp">
-                <div>
-                    <h1>Create Account</h1>
-                    <p>Fill in your details below</p>
+                        {/* Third Form */}
+                        <div className="SignUp">
+                            <h1>Secure Your Account</h1>
+                            <p>Setup a strong password for your account</p>
+                            <div className="SignBox">
+                                <div className="splitWrap">
+                                    <div className="splitForm">
+                                        {/* Passwords */}
+                                        <div className="wrapInput">
+                                            <input
+                                                type="password"
+                                                name="password"
+                                                id="Password"
+                                                onChange={onChange}
+                                                placeholder="Password"
+                                            />
+                                        </div>
+                                        <div className="wrapInput lastPassword">
+                                            <input
+                                                type="password"
+                                                name="confirmPassword"
+                                                id="validatePassword"
+                                                onChange={onChange}
+                                                placeholder="Confirm Password"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <button className="buttonForm" type="submit">
+                                    Register
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <form className="SignBox" onSubmit={handleSwitch}>
-                    <div className="splitForm">
-                        {/* Fullname */}
-                        <div className="wrapInput">
-                            <input
-                                type="text"
-                                name=""
-                                id="FullName"
-                                placeholder="FullName"
-                                required
-                            />
-                        </div>
-                        {/* Username */}
-                        <div className="wrapInput">
-                            <input
-                                type="text"
-                                name=""
-                                id="UserName"
-                                placeholder="UserName"
-                                required
-                            />
-                        </div>
-                        {/* email */}
-                        <div className="wrapInput">
-                            <input
-                                type="email"
-                                name=""
-                                id="Email"
-                                placeholder="Email"
-                                required
-                            />
-                        </div>
-                        {/* country */}
-                        <select name="Country" id="CountryForm">
-                            <option value="Nigeria">Nigeria</option>
-                            <option value="China">China</option>
-                            <option value="USA">USA</option>
-                            <option value="South Africa">South Africa</option>
-                        </select>
-                        {/* password */}
-                    </div>
-                    <button className="buttonForm" type="submit">
-                        Next
-                    </button>
-                    <p className="bottomText">
-                        Already you have an account in here?{" "}
-                        <a href="/signIn" className="formLink">
-                            Sign In
-                        </a>
-                    </p>
-                </form>
             </div>
         </>
     );
-}
-function UserInfoSecond() {
-    return (
-        <>
-            <div className="SignUp">
-                <h1>Add Your Wallets</h1>
-                <p>Add the address of the wallet you will like to use</p>
-                <form className="SignBox">
-                    <div className="splitWrap">
-                        <div className="splitForm">
-                            {/* Wallets */}
-                            <div className="wrapInput">
-                                <input
-                                    type="text"
-                                    name=""
-                                    id=""
-                                    placeholder="BTC Address"
-                                    required
-                                />
-                            </div>
-                            <div className="wrapInput">
-                                <input
-                                    type="text"
-                                    name=""
-                                    id=""
-                                    placeholder="ETH Address"
-                                />
-                            </div>
-                            <div className="wrapInput">
-                                <input
-                                    type="text"
-                                    name=""
-                                    id=""
-                                    placeholder="USDT(TRC20)"
-                                />
-                            </div>
-                            {/* Passwords */}
-                            
-                        </div>
-                    </div>
-                    <button className="buttonForm" type="submit">
-                        Next
-                    </button>
-                </form>
-            </div>
-        </>
-    );
-}
-function UserInfoThird() {
-    return (
-        <>
-            <div className="SignUp">
-                <h1>Secure Your Account</h1>
-                <p>Setup a strong password for your account</p>
-                <form className="SignBox">
-                    <div className="splitWrap">
-                        <div className="splitForm">
-                            {/* Passwords */}
-                            <div className="wrapInput">
-                                <input
-                                    type="password"
-                                    name=""
-                                    id="Password"
-                                    placeholder="Password"
-                                />
-                            </div>
-                            <div className="wrapInput lastPassword">
-                                <input
-                                    type="password"
-                                    name=""
-                                    id="validatePassword"
-                                    placeholder="Confirm Password"
-                                    required
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <button className="buttonForm" type="submit">
-                        Register
-                    </button>
-                </form>
-            </div>
-        </>
-    );
-}
-
-interface FirstInfo{
-    data: FormData
-}
-interface FormData {
-    userName?: string | null | undefined;
-    fullName?: string | null | undefined;
-    email?: string | null | undefined;
-    password?: string | null | undefined;
-    country?: string | null | undefined;
 }

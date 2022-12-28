@@ -1,20 +1,23 @@
-import { useRef } from "react";
+import { useState } from "react";
 import {NavBar } from "./Home"
 
 export function SignIn() {
-    const userForm:any = useRef()
-    function handleSignIn(e:any) {
-        e.preventDefault();
-        const Email = document.getElementById("Email Address"),
-            Password = document.getElementById("Password");
+    const [loginData, setLogInData] = useState({
+        email: '',
+        password: ''
+    })
 
-        const userData = {
-            e: Email?.textContent,
-            p: Password?.textContent,
-        };
+    const { email, password } = loginData;
 
-        console.log(userData);
+    const onChange = (e: any) => {
+        setLogInData((prevState) => ({
+            ...prevState,
+            [e.target.name]:e.target.value
+        }))
     }
+    
+    
+    
 
     return (
         <>
@@ -25,29 +28,29 @@ export function SignIn() {
                 <div className="SignIn">
                     <h1>Account Login</h1>
                         <form
-                            ref={userForm}
                         className="SignBox"
                         id="SignIn-Form"
-                        onSubmit={handleSignIn}
                     >
                         <img src="" alt="" />
                         <p>Sign into your account</p>
                         <div className="wrapInput">
                             <input
                                 type="email"
-                                name=""
+                                name="email"
                                 id="Email Address"
                                 placeholder="Email Address"
                                 required
+                                onChange={onChange}
                             />
                         </div>
                         <div className="wrapInput">
                             <input
                                 type="password"
-                                name=""
+                                name="password"
                                 id="Password"
                                 placeholder="Password"
                                 required
+                                onChange={onChange}
                             />
                             <a href="#">Forgot Password</a>
                         </div>
