@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 // images and Icons
 import menu from "../assets/img/icons8-menu-100.png";
@@ -366,10 +366,11 @@ export function NavBar() {
 
                 {/* <!-- Overlay content --> */}
                 <div className="overlay-content">
-                    <a href="/">home</a>
-                    <a href="/about">aboutus</a>
-                    <a href="/support">support</a>
-                    <a href="/signIn">login</a>
+                    <Link to={"/"}>home</Link>
+                    <Link to={"/about"}>aboutus</Link>
+                    <Link to={"/support"}>support</Link>
+                    <Link to={"/signIn"}>login</Link>
+                    
                 </div>
             </div>
 
