@@ -93,7 +93,7 @@ body{
 }
 
 .body{
-  background: url(./img/bgkingfx.png) , rgba(0, 0, 0, 0.089);
+  background: url(../assets/img/bgkingfx.png) , rgba(0, 0, 0, 0.089);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom;
