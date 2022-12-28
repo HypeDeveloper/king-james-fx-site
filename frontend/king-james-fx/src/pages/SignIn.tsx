@@ -1,3 +1,5 @@
+import {NavBar } from "./Home"
+
 export function SignIn() {
     function handleSignIn(e:any) {
         e.preventDefault();
@@ -13,10 +15,10 @@ export function SignIn() {
     }
 
     return (
+        <>
+        <NavBar/>
         <div className="sign">
-            <div className="header">
-                <h1>Welcome back</h1>
-            </div>
+            
             <div className="signWrap">
                 <div className="SignIn">
                     <h1>Account Login</h1>
@@ -57,6 +59,7 @@ export function SignIn() {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 

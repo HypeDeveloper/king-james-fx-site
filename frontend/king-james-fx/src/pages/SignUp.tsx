@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {NavBar } from "./Home"
 
 export function SignUp() {
     const [formData, setFormData] = useState({
@@ -14,14 +15,14 @@ export function SignUp() {
         
     }
     return (
+        <>
+        <NavBar/>
         <div className="sign">
-            <div className="header">
-                <h1>Welcome back</h1>
-            </div>
+            
             <div className="signWrap">
                 <UserInfoFirst data={formData} />
             </div>
-        </div>
+        </div></>
     );
 }
 
@@ -94,7 +95,7 @@ function UserInfoFirst(props: FirstInfo) {
                     </button>
                     <p className="bottomText">
                         Already you have an account in here?{" "}
-                        <a href="/" className="formLink">
+                        <a href="/signIn" className="formLink">
                             Sign In
                         </a>
                     </p>

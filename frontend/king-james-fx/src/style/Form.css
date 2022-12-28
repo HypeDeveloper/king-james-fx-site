@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     background-color: black;
-    height: 100vh;
+    height: 79.5vh;
     /* color: white; */
 }
 .sign .header{
@@ -20,7 +20,7 @@
     justify-content: center;
     zoom: 88%;
     height: 100vh;
-    width: 40%;
+    width: 100%;
 
 }
 .SignIn{

@@ -30,23 +30,7 @@ const registerUser = asyncHandler(async (req, res) => {
         inviteRefCode,
     } = req.body;
 
-    const userExists = User.findOne({ username });
-    if (userExists) {
-        res.status(400);
-        throw new Error("user already exists");
-    }
-    // Hash Password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    // Generate User RefCode
-    const refRand = randomstring.generate({
-        length: 8,
-        charset: "alphanumeric ",
-    });
-    const userRefCode = `${username}-${refRand}`;
-
-    const user = new Users(
+    const userData = new Users(
         fullname,
         username,
         email,
@@ -59,23 +43,19 @@ const registerUser = asyncHandler(async (req, res) => {
         inviteRefCode
     );
 
-    user.fieldsValid(res);
+    userData.fieldsValid(res);
 
-    //
+    // Hash Password
+    const salt = await bcrypt.genSalt(10);
+    userData.password = await bcrypt.hash(password, salt);
 
-    // // create user
-    // const user = await User.create({
-    //     fullname,
-    //     username,
-    //     email,
-    //     country,
-    //     password: hashedPassword,
-    //     btcAddress,
-    //     ethAddress,
-    //     usdtAddress,
-    //     userRefCode,
-    //     inviteRefCode,
-    // });
+    // Generate User RefCode
+    const refRand = randomstring.generate({
+        length: 8,
+        charset: "alphanumeric ",
+    });
+    userData.userRefCode = `${username}-${refRand}`;
+
 
     if (user) {
         res.status(201).json(user);
