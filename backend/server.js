@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === 'production') {
 } 
 else {
     app.get('/', (req, res) => {
-        res.send('Set env to production')
+        res.send('Set env to production');
     })
 }
 
