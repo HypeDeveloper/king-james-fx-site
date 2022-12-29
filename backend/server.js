@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const dotenv = require('dotenv').config()
 const { errHandler } = require('./middleware/errorMiddleWare')
@@ -17,6 +18,18 @@ app.use(cors())
 // route for users
 app.use('/users', require('./routes/userRouts'))
 
+// serve Frontend
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../frontend/king-james-fx/dist')))
+    app.get('*', (req, res)=>{
+        res.sendFile(path.resolve(__dirname, '../', 'frontend', 'king-james-fx', 'dist', 'index.html'))
+    })
+} 
+else {
+    app.get('/', (req, res) => {
+        res.send('Set env to production')
+    })
+}
 
 
 

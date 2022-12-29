@@ -1,5 +1,5 @@
-import { useRef } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 // images and Icons
 import menu from "../assets/img/icons8-menu-100.png";
@@ -15,12 +15,21 @@ import walletImg from "../assets/img/wallet-interest.png";
 import mid from "../assets/img/mid001.png";
 import hs5 from "../assets/img/hs5.png";
 import sh8 from "../assets/img/sh8.png";
+import { Auth, useAuth } from "../AuthManger/AuthContext";
 
 export function Index() {
     return <Outlet />;
 }
 
 export function Home() {
+    const {  user }: Auth = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        if(user !== null){
+            navigate('/dashboard')
+        }
+    },[user])
     return (
         <>
             <NavBar />
@@ -40,10 +49,10 @@ function HomeBody() {
                     </div>
                     <div className="herobtn">
                         <div className="hbtn">
-                            <a href=""> create account</a>
+                            <a href="/signUp"> create account</a>
                         </div>
                         <div className="hbtn">
-                            <a href=""> login</a>
+                            <a href="/signIn"> login</a>
                         </div>
                     </div>
                 </div>

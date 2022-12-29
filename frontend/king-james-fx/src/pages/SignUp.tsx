@@ -5,30 +5,27 @@ import { useNavigate } from "react-router-dom";
 
 export function SignUp() {
     const FormOne:any = useRef()
-    const FormTwo:any = useRef()
     const FormThree: any = useRef();
     const [formData, setFormData] = useState({
         userName: "",
         fullName: "",
         email: "",
-        password: "",
         country: "",
-        btc: "",
-        eth: "",
-        usdt: "",
+        password: "",
         confirmPassword: "",
         inviteCode:""
     });
-    const { RegisterUser, isLoading, isSuccess }:Auth = useAuth();
+    const { RegisterUser, isLoading, isSuccess, Reset }: Auth = useAuth();
     const navigate = useNavigate()
     useEffect(() => {
         if (isSuccess) {
-            console.log('Registered');
-            navigate('/dashboard')
+            alert('Registered');
+            Reset ? Reset(): null;
+            navigate('/signIn')
+            
         }
     }, [isSuccess]);
     useEffect(() => {
-        FormTwo.current.style.display = "none";
         FormThree.current.style.display = "none";
     },[])
 
@@ -38,44 +35,37 @@ export function SignUp() {
         email,
         password,
         country,
-        btc,
-        eth,
-        usdt,
         confirmPassword,
         inviteCode,
     } = formData;
     
     const nextFormOne = () => {
-        if (userName === "" || fullName ==="" || email === "") {
+        if (
+            userName === "" ||
+            fullName === "" ||
+            email === "" ||
+            country === ""
+        ) {
+            alert("missing a field");
             return
         }
         FormOne.current.style.display = "none";
-        FormTwo.current.style.display = "flex";
-        FormThree.current.style.display = "none";
-    };
-    const nextFormTwo = () => {
-        FormOne.current.style.display = "none";
-        FormTwo.current.style.display = "none";
         FormThree.current.style.display = "flex";
     };
     const submit = (e:any) => {
         e.preventDefault()
 
         if (password !== confirmPassword) {
-            console.log("Password does not match");
+            alert("Password does not match");
         }
         else {
             const userData = {
-                fullName,
-                userName,
-                email,
-                country,
-                password,
-                btc,
-                eth,
-                usdt,
-                confirmPassword,
-                inviteCode,
+                fullname: fullName,
+                username: userName,
+                email: email,
+                country: country,
+                password: password,
+                inviteRefCode: inviteCode,
             };
             RegisterUser? RegisterUser(userData) : null;
         }
@@ -157,7 +147,7 @@ export function SignUp() {
                                         <option value="Select a Country">
                                             Select a Country
                                         </option>
-                                        <option value="Nigeria">Nigeria</option>
+                                        <option value="Nigeria">Uk</option>
                                         <option value="China">China</option>
                                         <option value="USA">USA</option>
                                         <option value="South Africa">
@@ -180,56 +170,7 @@ export function SignUp() {
                             </div>
                         </div>
 
-                        {/* Second Form */}
-                        <div className="SignUp" ref={FormTwo}>
-                            <h1>Add Your Wallets</h1>
-                            <p>
-                                Add the address of the wallet you will like to
-                                use
-                            </p>
-                            <div className="SignBox">
-                                <div className="splitWrap">
-                                    <div className="splitForm">
-                                        {/* Wallets */}
-                                        <div className="wrapInput">
-                                            <input
-                                                type="text"
-                                                name="eth"
-                                                id="eth"
-                                                placeholder="ETH Address"
-                                                onChange={onChange}
-                                            />
-                                        </div>
-                                        <div className="wrapInput">
-                                            <input
-                                                type="text"
-                                                name="btc"
-                                                id="btc"
-                                                placeholder="BTC Address"
-                                                onChange={onChange}
-                                            />
-                                        </div>
-
-                                        <div className="wrapInput">
-                                            <input
-                                                type="text"
-                                                name="usdt"
-                                                id="usdt"
-                                                placeholder="USDT(TRC20)"
-                                                onChange={onChange}
-                                            />
-                                        </div>
-                                        {/* Passwords */}
-                                    </div>
-                                </div>
-                                <button
-                                    className="buttonForm"
-                                    onClick={nextFormTwo}
-                                >
-                                    Next
-                                </button>
-                            </div>
-                        </div>
+                        
 
                         {/* Third Form */}
                         <div className="SignUp" ref={FormThree}>

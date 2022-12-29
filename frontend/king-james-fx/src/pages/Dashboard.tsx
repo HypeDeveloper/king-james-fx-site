@@ -1,11 +1,22 @@
-import { Outlet } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
 import '../style/Dashboard.css'
 
 import kingLogo from "../assets/img/kinglogo.png";
 import { useEffect, useState } from "react";
+import { authService } from "../AuthManger/AuthService";
+import { Auth, useAuth } from "../AuthManger/AuthContext";
 
 
 export function Dashboard() {
+    const { user }: Auth = useAuth();
+    const nav = useNavigate();
+
+
+    useEffect(()=>{
+        if(user === null){
+            nav('/signIn')
+        }
+    },[user])
     return (
         <>
             <div className="dashBoard">
@@ -47,12 +58,17 @@ export function Dashboard() {
 }
 
 function DashBoardNav() {
-    const [activeUrl, setActiveUrl] = useState('')
+    const [activeUrl, setActiveUrl] = useState(' ')
+    const nav = useNavigate();
+
     useEffect(()=>{
         setActiveUrl(document.location.href.split("/")[4]);
-        console.log(activeUrl);
+        console.log(document.location.href.split("/"));
     }, [])
-
+    function logoutHandle() {
+        authService.logout();
+        nav('/signIn')
+    }
     return (
         <>
             <div className="DashNavWrap">
@@ -60,7 +76,7 @@ function DashBoardNav() {
                 <div className="links-DD">
                     <div
                         className={`dd-button ${
-                            activeUrl === "" ? "acitve" : ""
+                            activeUrl === " "|| document.location.href.split("/")[3] === 'dashboard' ? "acitve" : ""
                         }`}
                     >
                         <div className="box-DD">
@@ -165,7 +181,7 @@ function DashBoardNav() {
                                 />
                             </svg>
                         </div>
-                        <a href=" ">Logout</a>
+                        <p  onClick={logoutHandle}>Logout</p>
                     </div>
                 </div>
             </div>

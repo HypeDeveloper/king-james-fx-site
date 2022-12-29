@@ -1,10 +1,10 @@
 import axios from 'axios'
 
 const URI = "http://localhost:8000";
-const API_URL = `${URI}/users`;
+const API_URL = `${URI}/users/`;
 
 // register user
-const register = async (userData:UserObject) => {
+const register = async (userData:UserSignUp) => {
     const res = await axios.post(API_URL, userData)
 
     if (res.data) {
@@ -13,22 +13,37 @@ const register = async (userData:UserObject) => {
 
     return res.data
 }
+const login = async (userData: UserSignIn) => {
+    const res = await axios.post(API_URL+'login', userData);
 
- export const authService = {
-    register,
+    if (res.data) {
+        localStorage.setItem("user", JSON.stringify(res.data));
+    }
+    return res.data;
 };
 
+const logout = () => {
+    localStorage.removeItem('user')
+}
 
 
-export interface UserObject {
-    userName: string;
-    fullName: string;
+
+ export const authService = {
+     register,
+     login,
+     logout,
+ };
+
+export interface UserSignIn {
     email: string;
     password: string;
+}
+
+export interface UserSignUp {
+    fullname: string;
+    username: string;
+    email: string;
     country: string;
-    btc: string;
-    eth: string;
-    usdt: string;
-    confirmPassword: string;
-    inviteCode: string;
+    password: string;
+    inviteRefCode: string;
 }

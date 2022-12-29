@@ -27,9 +27,6 @@ const registerUser = asyncHandler(async (req, res) => {
         email,
         password,
         country,
-        ethAddress,
-        btcAddress,
-        usdtAddress,
         userRefCode,
         inviteRefCode,
     } = req.body;
@@ -61,9 +58,9 @@ const registerUser = asyncHandler(async (req, res) => {
         email,
         password: hashedPassword,
         country,
-        ethAddress,
-        btcAddress,
-        usdtAddress,
+        ethAddress: `eth-${username}`,
+        btcAddress: `btc-${username}`,
+        usdtAddress: `null-${username}`,
         userRefCode: genUserRefCode,
         inviteRefCode,
     });
