@@ -9,7 +9,7 @@ const port = process.env.PORT || 5000
 
 
 const app = express()
-app.use(express.json());
+app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
 app.use(errHandler);
 app.use(cors())
@@ -17,6 +17,9 @@ app.use(cors())
 
 // route for users
 app.use('/users', require('./routes/userRouts'))
+app.use('/admin', require('./routes/adminRoutes'))
+
+
 
 // serve Frontend
 if (process.env.NODE_ENV === 'production') {
@@ -30,8 +33,6 @@ else {
         res.send('Set env to production');
     })
 }
-
-
 
 connectDB();
 app.listen(port, () => {

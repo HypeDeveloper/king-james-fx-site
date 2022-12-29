@@ -8,15 +8,18 @@ import { Auth, useAuth } from "../AuthManger/AuthContext";
 
 
 export function Dashboard() {
-    const { user }: Auth = useAuth();
+
     const nav = useNavigate();
+    
+    let user: any;
 
-
-    useEffect(()=>{
-        if(user === null){
-            nav('/signIn')
-        }
-    },[user])
+    useEffect(() => {
+        console.log(authService.getLogedInUser());
+        authService.getLogedInUser()
+            ? (user = authService.getLogedInUser())
+            : nav("/signIn");
+    }, [[], authService.getLogedInUser()]);
+    
     return (
         <>
             <div className="dashBoard">

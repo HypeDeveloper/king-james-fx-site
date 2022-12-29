@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Auth, useAuth } from "../AuthManger/AuthContext";
+import { authService } from "../AuthManger/AuthService";
 import {NavBar } from "./Home"
 
 export function SignIn() {
@@ -8,16 +9,16 @@ export function SignIn() {
         email: '',
         password: ''
     })
-    const { AuthUser, isLoading, isSuccess, Reset, user }: Auth = useAuth();
+    const { AuthUser, isLoading, isSuccess, Reset }: Auth = useAuth();
     const navigate = useNavigate();
 
 
 
     useEffect(()=>{
-        if(user !== null){
-            navigate('/dashboard/')
+        if (authService.getLogedInUser() !== null) {
+            navigate("/dashboard/");
         }
-    },[user])
+    },[])
     useEffect(() => {
         if (isSuccess) {
             console.log("Registered");

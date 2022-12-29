@@ -7,37 +7,33 @@ const useAuth = () => useContext(AuthContext);
 const AuthContextProvider = ({ children }: any) => {
     const [isLoading, setLoading] = useState(false);
     const [isSuccess, setSuccess] = useState(false);
-    const [user, setUser] = useState(null);
+    const [user, setUser]: any = useState(null);
     const [message, setMessage] = useState<any>();
 
-    useEffect(() => {
-        const localData = localStorage.getItem("user") || "";
-        const logedUser = JSON.parse(JSON.stringify(localData));
-        setUser(logedUser ? logedUser : null);
-        console.log(user);
-    }, [user]);
+    const [storedUser, setStoredUser] = useState(null) 
 
+
+    // auth Users with Token
     async function RegisterUser(user: UserSignUp) {
         setLoading(true);
         await authService
             .register(user)
             .then(() => {
                 setSuccess(true);
-                console.log("Sign up Valid: You have been registered");
+               alert("Sign up Valid: You have been registered");
             })
             .catch((err) => {
                 console.log(err);
                 setMessage(err);
             });
     }
-
     const AuthUser = async (user: UserSignIn) => {
         setLoading(true);
          await authService
              .login(user)
              .then(() => {
                  setSuccess(true);
-                 console.log("Sign In Valid");
+                 alert("Sign In Valid");
              })
              .catch((err) => {
                  console.log(err);
@@ -45,6 +41,21 @@ const AuthContextProvider = ({ children }: any) => {
              });
    };
 
+    const AuthToken = async (tokenData: {token:string}) => {
+        setLoading(true);
+        await authService
+            .token(tokenData)
+            .then(() => {
+                setSuccess(true);
+                alert("Success");
+            })
+            .catch((err) => {
+                console.log(err);
+                alert("Error");
+                setMessage(err);
+            });
+    };
+    
     function Reset() {
         setLoading(false);
         setSuccess(false);
@@ -59,6 +70,10 @@ const AuthContextProvider = ({ children }: any) => {
         RegisterUser,
         AuthUser,
         Reset,
+        setUser,
+        setStoredUser,
+        storedUser,
+        AuthToken,
     };
     return (
         <AuthContext.Provider value={AuthValues}>
@@ -74,6 +89,9 @@ export interface Auth {
     isSuccess?: boolean;
     RegisterUser?: (user: UserSignUp) => Promise<void>;
     AuthUser?: (user: UserSignIn) => Promise<void>;
+    getLogedInUser?: () => Promise<any>;
     Reset?: () => void;
+    setUser?: React.Dispatch<React.SetStateAction<any>>;
+    AuthToken?: (tokenData: { token: string }) => Promise<void>;
 }
 export { AuthContextProvider, useAuth};

@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const User = require('../model/userModel')
 const randomstring = require("randomstring");
 const asyncHandler = require('express-async-handler');
-const Users = require('../model/userModel');
+
 // get User Data 
 // [route: GET /user/me] 
 // [@public]
@@ -51,6 +51,15 @@ const registerUser = asyncHandler(async (req, res) => {
         charset: "alphanumeric ",
     });
     const genUserRefCode = `${username}-${refRand}`;
+
+    // verify Invite Token
+    const inviteCode = await User.findOne({ inviteRefCode });
+
+    if (!inviteCode) {
+        res.status(400);
+        throw new Error("Invalid Token");
+    }
+
 
     const user = await User.create({
         fullname,

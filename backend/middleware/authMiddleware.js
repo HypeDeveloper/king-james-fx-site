@@ -30,4 +30,30 @@ const protect = asyncHandler(async (req, res ,next) => {
     }
 })
 
-module.exports = protect
+const protectAdmin = asyncHandler(async (req, res ,next) => {
+    let token
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+        try {
+            // jet Token from header
+            token = req.headers.authorization.split(' ')[1]
+
+            // Verify Token
+            const decoded = jwt.verify(token, process.env.AUTH_JWT_SECRET);
+
+            // Get The Verified user
+            req.user = await Admin.findById(decoded.id).select('-token');
+
+            next()
+        } catch (err) {
+            console.log(err);
+            res.status(401)
+            throw new Error('User not authorized')
+        }
+    }
+    if (!token) {
+        res.status(401);
+        throw new Error("User no token");
+    }
+})
+
+module.exports = {protect, protectAdmin}

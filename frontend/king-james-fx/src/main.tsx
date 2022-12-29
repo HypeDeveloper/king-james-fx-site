@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
 import { Dashboard, DashBoardHome, Packages, SupportDD, Transactions } from "./pages/Dashboard";
 import { SignIn } from './pages/SignIn'
@@ -12,7 +12,8 @@ import { About, Support} from './pages/Others'
 import PageNotFound from './pages/404'
 import './style/Home.css'
 import { Admin } from './pages/Admin';
-import { AuthContextProvider } from './AuthManger/AuthContext';
+import { Auth, AuthContextProvider, useAuth } from './AuthManger/AuthContext';
+import { authService } from './AuthManger/AuthService';
 
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 );
 
 function App() {
+    
   return (
       <BrowserRouter>
           <Routes>

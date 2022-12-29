@@ -16,6 +16,7 @@ import mid from "../assets/img/mid001.png";
 import hs5 from "../assets/img/hs5.png";
 import sh8 from "../assets/img/sh8.png";
 import { Auth, useAuth } from "../AuthManger/AuthContext";
+import { authService } from "../AuthManger/AuthService";
 
 export function Index() {
     return <Outlet />;
@@ -26,7 +27,7 @@ export function Home() {
     const navigate = useNavigate();
 
     useEffect(()=>{
-        if(user !== null){
+        if(authService.getLogedInUser() !== null){
             navigate('/dashboard')
         }
     },[user])
