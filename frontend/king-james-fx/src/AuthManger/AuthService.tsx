@@ -54,7 +54,7 @@ const getMe = async (token: string) => {
             Authorization: `Bearer ${token}`,
         },
     };
-    const res = await axios.get(API_URL + "me", config);
+    const res = await axios.get(API_URL + "me", config)
 
     return res.data;
 };
