@@ -11,15 +11,11 @@ export function Dashboard() {
     const nav = useNavigate();
 
 
-    console.log(authService.getLogedInUser());
-    authService.getLogedInUser()
-        ? setData(authService.getLogedInUser())
-        : nav("/signIn");
     useEffect(() => {
-        // console.log(authService.getLogedInUser());
-        // authService.getLogedInUser()
-        //     ? (setData(authService.getLogedInUser()))
-        //     : nav("/signIn");
+        console.log(authService.getLogedInUser());
+        authService.getLogedInUser()
+            ? (setData(authService.getLogedInUser()))
+            : nav("/signIn");
 
         
 
@@ -36,7 +32,7 @@ export function Dashboard() {
                     <div className="DD-top">
                         <div className="DD-texts">
                             <p>Welcome back,</p>
-                            <h1>{data?.fullName}</h1>
+                            <h1>{authService.getLogedInUser().fullName}</h1>
                         </div>
                         <div className="others">
                             <div className="search-DD">
