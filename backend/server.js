@@ -14,10 +14,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors())
 
 // route for users
-app.use('/users', require('./routes/userRouts'))
+app.use('/api/users', require('./routes/userRouts'))
 //  route fo Admin
-app.use('/admin', require('./routes/adminRoutes'))
-app.use("/transfare", require("./routes/transRoutes"));
+app.use('/api/admin', require('./routes/adminRoutes'))
+app.use("/api/transfare", require("./routes/transRoutes"));
 
 app.use(errHandler);
 
