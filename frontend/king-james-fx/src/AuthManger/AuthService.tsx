@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const URI = "http://localhost:8000";
 const API_URL = `${URI}/users/`;
-const API_URL_ADMIN = `${URI}/useadminrs/`;
+const API_URL_ADMIN = `${URI}/admin/`;
 
 // register user
 const register = async (userData:UserSignUp) => {
@@ -14,6 +14,7 @@ const register = async (userData:UserSignUp) => {
 
     return res.data
 }
+// login User
 const login = async (userData: UserSignIn) => {
     const res = await axios.post(API_URL+'login', userData);
 
@@ -22,7 +23,8 @@ const login = async (userData: UserSignIn) => {
     }
     return res.data;
 };
-const getLogedInUser =  () => {
+
+const getLogedInUser:any =  () => {
     let logedUser;
     try {
         logedUser = JSON.parse(localStorage.getItem("user") || ""); 
@@ -45,12 +47,26 @@ const token = async (userData: {token: string}) => {
 
 
 
+// get me
+const getMe = async (token: string) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+    const res = await axios.get(API_URL + "me", config);
+
+    return res.data;
+};
+
+
  export const authService = {
      register,
      login,
      logout,
      getLogedInUser,
      token,
+     getMe,
  };
 
 export interface UserSignIn {

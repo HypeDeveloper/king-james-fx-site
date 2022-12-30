@@ -6,12 +6,11 @@ const {
     getAllUsers,
     deleteUser,
 } = require("../controller/adminController");
-const protectAdmin = require("../middleware/authMiddleware");
+const {protectAdmin} = require("../middleware/authMiddleware");
 
 router.post("/", createToken);
 router.post("/login", loginAdmin);
-router.get("/me", protectAdmin, getAllUsers);
 
-router.route("/:id").delete(deleteUser);
+router.delete("/user/delete", protectAdmin, deleteUser);
 
 module.exports = router;

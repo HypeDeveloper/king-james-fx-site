@@ -18,14 +18,18 @@ const createToken = asyncHandler(async (req, res) => {
     const {owner,token, rights} = req.body
 
     if (!token || !owner || !rights) {
-        res.status(400).json({
-            message: 'token needed'
-         })
+        res.status(400)
          throw new Error("Fill in all fields");
     }
      
+    const adminExists = await Admin.findOne({ owner });
+    if (adminExists) {
+        res.status(400);
+        throw new Error("Admin already Exiis");
+    }
+
     const salt = await bcrypt.genSalt(10);
-    const hashedtoken = await bcrypt.hash(password, salt);
+    const hashedtoken = await bcrypt.hash(token, salt);
 
     const admin = await Admin.create({
         owner,
@@ -49,15 +53,15 @@ const createToken = asyncHandler(async (req, res) => {
 
 
 const loginAdmin= asyncHandler(async (req, res) => {
-    const { token } = req.body;
+    const { token, owner } = req.body;
 
-    const admin = await Admin.findOne({ token });
+    const admin = await Admin.findOne({ owner });
 
     // Check admin token
     if ((await bcrypt.compare(token, admin.token))) {
         res.json({
             _id: admin.id,
-            tokenID: generateJWT(admin.adminId),
+            tokenID: generateJWT(admin._id),
             right: admin.rights
         });
     } else {
@@ -66,20 +70,18 @@ const loginAdmin= asyncHandler(async (req, res) => {
     }
 });
 
-const deleteUser =  asyncHandler(async (req, res) => {
-    const { id } = req.params
-    const user = await User.findById(id)
+const deleteUser = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.body.id)
 
     if (user) {
-        User.deleteOne()
+        User.findByIdAndDelete(user._id)
         res.status(200).json({
             message: 'user deleted'
         })
     }
     else {
-        res.status(400).json({
-            message: "user not in db"
-        })
+        res.status(400);
+        throw new Error("Invalid user");
     }
 })
 

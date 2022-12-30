@@ -11,14 +11,15 @@ const port = process.env.PORT || 5000
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
-app.use(errHandler);
 app.use(cors())
-
 
 // route for users
 app.use('/users', require('./routes/userRouts'))
+//  route fo Admin
 app.use('/admin', require('./routes/adminRoutes'))
+app.use("/transfare", require("./routes/transRoutes"));
 
+app.use(errHandler);
 
 
 // serve Frontend

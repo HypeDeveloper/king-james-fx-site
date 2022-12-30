@@ -10,6 +10,9 @@ const AuthContextProvider = ({ children }: any) => {
     const [user, setUser]: any = useState(null);
     const [message, setMessage] = useState<any>();
 
+
+    const[dbUser, setDbUser]:any =useState()
+
     const [storedUser, setStoredUser] = useState(null) 
 
 
@@ -39,6 +42,11 @@ const AuthContextProvider = ({ children }: any) => {
                  console.log(err);
                  setMessage(err);
              });
+   };
+
+    
+   const GetMe_DB = async () => {
+        setLoading(true);
    };
 
     const AuthToken = async (tokenData: {token:string}) => {
@@ -74,6 +82,7 @@ const AuthContextProvider = ({ children }: any) => {
         setStoredUser,
         storedUser,
         AuthToken,
+    
     };
     return (
         <AuthContext.Provider value={AuthValues}>
@@ -93,5 +102,7 @@ export interface Auth {
     Reset?: () => void;
     setUser?: React.Dispatch<React.SetStateAction<any>>;
     AuthToken?: (tokenData: { token: string }) => Promise<void>;
+    GetMe_DB?: (user: UserSignIn) => Promise<void>;
+    dbUser?: any
 }
 export { AuthContextProvider, useAuth};

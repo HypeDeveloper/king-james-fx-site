@@ -41,6 +41,9 @@ const UserSchema = mongoose.Schema({
     inviteRefCode: {
         type: String,
     },
+    amount: {
+        type: Number,
+    },
 },
     {
     timestamps: true

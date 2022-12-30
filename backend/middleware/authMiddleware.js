@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const jwt = require("jsonwebtoken");
 const Users = require("../model/userModel");
+const Admin = require("../model/adminModel");
 
 
 const protect = asyncHandler(async (req, res ,next) => {
@@ -41,7 +42,7 @@ const protectAdmin = asyncHandler(async (req, res ,next) => {
             const decoded = jwt.verify(token, process.env.AUTH_JWT_SECRET);
 
             // Get The Verified user
-            req.user = await Admin.findById(decoded.id).select('-token');
+            req.user = await Admin.findById(decoded.id)
 
             next()
         } catch (err) {
@@ -52,7 +53,7 @@ const protectAdmin = asyncHandler(async (req, res ,next) => {
     }
     if (!token) {
         res.status(401);
-        throw new Error("User no token");
+        throw new Error("Admin no token");
     }
 })
 

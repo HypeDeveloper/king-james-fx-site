@@ -98,7 +98,7 @@ function HomeBody() {
                 </div>
             </div>
 
-            {/* <script src="https://widgets.coingecko.com/coingecko-coin-price-marquee-widget.js"></script> */}
+            <script src="https://widgets.coingecko.com/coingecko-coin-price-marquee-widget.js"></script>
             <div className="divideblock">
                 <div className="block1">
                     <img src={bull} width="75%" />

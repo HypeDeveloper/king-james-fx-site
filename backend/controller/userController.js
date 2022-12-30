@@ -6,13 +6,24 @@ const asyncHandler = require('express-async-handler');
 
 // get User Data 
 // [route: GET /user/me] 
-// [@public]
-const getUserData = asyncHandler(async(req, res) => {
-    const { _id } = await User.findById(req.user.id)
+// [@private]
+// Get Updated user data
+const getUserData = asyncHandler(async (req, res) => {
+    const { _id, email, fullname, amount } = await User.findById(req.user.id);
     
     res.status(200).json({
         id: _id,
-        user: req.user
+        email,
+        fullname,
+        amount,
+    });
+})
+
+const getAllUsers = asyncHandler(async (req, res) => {
+    const users = await User.find();
+    
+    res.status(200).json({
+        users
     });
 })
 
@@ -27,7 +38,6 @@ const registerUser = asyncHandler(async (req, res) => {
         email,
         password,
         country,
-        userRefCode,
         inviteRefCode,
     } = req.body;
 
@@ -38,7 +48,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const userExists = await User.findOne({ email })
     if (userExists) {
         res.status(400)
-        throw new Error('User already Exiis')
+        throw new Error('User already Exists')
     }
 
     // Hash Password
@@ -72,13 +82,16 @@ const registerUser = asyncHandler(async (req, res) => {
         usdtAddress: `null-${username}`,
         userRefCode: genUserRefCode,
         inviteRefCode,
+        amount: 0,
     });
 
     if (user) {
         res.status(201).json({
-            userID: user.id,
-            token: generateJWT(user.userID),
-            user: user,
+            _id: user.id,
+            username: user.username,
+            email: user.email,
+            token: generateJWT(user._id),
+            fullName: user.fullname
         });
     } else {
         res.status(400);
@@ -102,7 +115,7 @@ const loginUser = asyncHandler(async(req, res) => {
             username: user.username,
             email: user.email,
             token: generateJWT(user._id),
-            userData: user,
+            fullName: user.fullname
         });
     } else {
         res.status(400);
@@ -110,14 +123,6 @@ const loginUser = asyncHandler(async(req, res) => {
     }
 });
 
-// delete User 
-// [route: DELETE /user] 
-// [@private]
-const deleteUser = asyncHandler(async(req, res) => {
-    res.status(200).json({
-        message: `delete user ${req.params.id}`,
-    });
-})  ;
 
 const generateJWT = (id) => {
     return jwt.sign({ id }, process.env.AUTH_JWT_SECRET, {
@@ -129,5 +134,5 @@ module.exports = {
     getUserData,
     registerUser,
     loginUser,
-    deleteUser,
+    getAllUsers,
 };
